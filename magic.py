@@ -118,7 +118,8 @@ if not libmagic or not libmagic._name:
     platform_to_lib = {'darwin': ['/opt/local/lib/libmagic.dylib',
                                   '/usr/local/lib/libmagic.dylib',
                                   '/usr/local/Cellar/libmagic/5.10/lib/libmagic.dylib'],
-                       'win32':  ['magic1.dll']}
+                       'win32':  ['magic1.dll'],
+                       'sunos5': ['/opt/local/lib/libmagic.so']}
     for dll in platform_to_lib.get(sys.platform, []):
         try:
             libmagic = ctypes.CDLL(dll)
