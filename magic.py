@@ -51,11 +51,11 @@ class Magic:
         magic_load(self.cookie, magic_file)
 
 
-    def from_buffer(self, buf):
+    def from_buffer(self, buf, size=None):
         """
         Identify the contents of `buf`
         """
-        return magic_buffer(self.cookie, buf)
+        return magic_buffer(self.cookie, buf, size)
 
     def from_file(self, filename):
         """
@@ -167,8 +167,11 @@ _magic_buffer.argtypes = [magic_t, c_void_p, c_size_t]
 _magic_buffer.errcheck = errorcheck
 
 
-def magic_buffer(cookie, buf):
-    return _magic_buffer(cookie, buf, len(buf))
+def magic_buffer(cookie, buf, size=None):
+    if size is None:
+        size = len(buf)
+        
+    return _magic_buffer(cookie, buf, size)
 
 
 magic_load = libmagic.magic_load
