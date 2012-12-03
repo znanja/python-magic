@@ -31,7 +31,7 @@ class Magic:
 
     """
 
-    def __init__(self, mime=False, magic_file=None, mime_encoding=False):
+    def __init__(self, mime=False, magic_file=None, mime_encoding=False, add_flags=None):
         """
         Create a new libmagic wrapper.
 
@@ -45,6 +45,9 @@ class Magic:
             flags |= MAGIC_MIME
         elif mime_encoding:
             flags |= MAGIC_MIME_ENCODING
+            
+        if add_flags is not None:
+            flags |= add_flags
 
         self.cookie = magic_open(flags)
 
